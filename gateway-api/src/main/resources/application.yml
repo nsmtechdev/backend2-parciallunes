@@ -1,0 +1,79 @@
+server:
+  port: 9090
+
+spring:
+  application:
+    name: api-gateway
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/DigitalMedia
+        registration:
+          api-gateway-service:
+            provider: keycloak
+            client-id: api-gateway
+            client-secret: i9DHlZUjmVD9AMXPLjExftweZkDbmxoX
+            authorization-grant-type: authorization_code
+            redirect-uri: 'http://localhost:9090/login/oauth2/code/keycloak'
+
+  cloud:
+    gateway:
+      default-filters:
+        - TokenRelay
+      discovery:
+        locator:
+          enabled: true
+        routes:
+          - id: users-service
+            uri: lb://USERS-SERVICE
+            predicates:
+              - Path=/users/**
+          - id: movies-service
+            uri: lb://MOVIES-SERVICE
+            predicates:
+              - Path=/movies/**
+#      routes:
+#        - id: moviesRoute
+#          #uri: http://localhost:8086
+#          uri: lb://movies-service
+#          #uri: http://peliculas-service:8086
+#          predicates:
+#            - Path=/movies/**
+#          filters:
+#            - StripPrefix=0
+#            - name: CircuitBreaker
+#              args:
+#                name: moviesService
+#              #  fallbackUri: forward:/fallback/movies
+#        - id: usersRoute
+#          #uri: http://localhost:8087
+#          uri: lb://usres-service
+#          #uri: http://usuarios-service:8087
+#          predicates:
+#            - Path=/users/**
+#          filters:
+#            - StripPrefix=0
+#            - name: CircuitBreaker
+#              args:
+#                name: usersService
+#            #   fallbackUri: forward:/fallback/users
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    enabled: true
+
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        security: DEBUG
+#
+#info:
+#  app:
+#    name: ${spring.application.name}
+#    description: Gateway Service Parcial Backend 2 NSM
+#    version: 1.0.0

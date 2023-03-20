@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/eurekaService/eurekaService.iml" filepath="$PROJECT_DIR$/eurekaService/eurekaService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gateway-api/gateway-api.iml" filepath="$PROJECT_DIR$/gateway-api/gateway-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/parcial final back2b.iml" filepath="$PROJECT_DIR$/.idea/parcial final back2b.iml" />
+    </modules>
+  </component>
+</project>
